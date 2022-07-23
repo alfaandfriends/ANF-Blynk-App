@@ -1,6 +1,6 @@
 
 <template>
-    <div class="rounded p-8" style="background-color: #a8dadc;">
+    <div class="rounded p-8 mx-auto mt-auto sm:translate-y-1/2" style="background-color: #a8dadc;">
         <form>
             <h3 class="text-3xl font-bold mb-5 text-center" style="color: #1d3557">ALFA and Friends Blynk App</h3>
             <h3 class="text-lg text-center mb-2" style="color: #457b9d">Sign In</h3>
@@ -27,21 +27,6 @@
 import router from '../../router';
 
     export default {
-        // mounted(){
-        //     axios({
-        //         method: 'get',
-        //         url: 'http://127.0.0.1:8000/profile',
-        //     })
-        //     .then((response) => {
-        //         console.log(response)
-        //         if(response.data){
-        //             router.push({name: 'dashboard'})
-        //         }
-        //     })
-        //         .catch((error) => {
-        //             router.push({name: 'login'})
-        //         });
-        // },
         data() {
             return {
                 errorLogin: false,
@@ -51,8 +36,19 @@ import router from '../../router';
                 }
             }
         },
-        created(){
-            // this.$storage.setStorageSync("test-key", "testdata");
+        mounted(){
+            axios({
+                method: 'get',
+                url: 'http://127.0.0.1:8000/profile',
+            })
+            .then((response) => {
+                console.log(response)
+                if(!response.data == ''){
+                    router.push({name: 'dashboard'})
+                }
+            })
+            .catch((error) => {
+            });
         },
         methods: {
             submit(){
@@ -73,9 +69,6 @@ import router from '../../router';
                     // router.push({name: 'login'})
                     this.errorLogin = true
                 });
-            },
-            register(){
-
             }
         }
     }

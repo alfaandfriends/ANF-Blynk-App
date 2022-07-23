@@ -1,6 +1,6 @@
 
 <template>
-    <div class="rounded p-8" style="background-color: #a8dadc;">
+    <div class="rounded p-8 mx-auto mt-auto sm:translate-y-1/2" style="background-color: #a8dadc;">
         <form>
             <h3 class="text-3xl font-bold mb-5 text-center" style="color: #1d3557">ALFA and Friends Blynk App</h3>
             <h3 class="text-lg text-center mb-2" style="color: #457b9d">Create an account</h3>
@@ -11,12 +11,13 @@
                 <input type="password" class="rounded py-2 px-4" v-model="form.password" />
             </div>
             <div class="flex flex-col text-center space-y-3  mb-5">
-                <button type="submit" @click="submit" class="text-sm rounded bg-indigo-500 px-6 py-2 text-white hover:bg-indigo-700">Create Account</button>
+                <button type="button" @click="submit" class="text-sm rounded bg-indigo-500 px-6 py-2 text-white hover:bg-indigo-700">Create Account</button>
                 <span class="text-slate-700 font-extralight text-xs">or</span>
                 <a href="/login" class="text-sm rounded bg-slate-700 px-6 py-2 text-white hover:bg-gray-500 no-underline">Back to Sign In</a>
             </div>
             <div class="text-center">
-                <span v-show="errorLogin" class="rounded-1 px-6 py-2 bg-red-100 text-center text-red-600">Login Error! Please try again.</span>
+                <span v-show="successRegister" class="rounded-1 px-6 py-2 bg-green-100 text-center text-green-600">Account created successfully! Please login to continue.</span>
+                <span v-show="errorRegister" class="rounded-1 px-6 py-2 bg-red-100 text-center text-red-600">An error has occured! Please try again.</span>
             </div>
 
         </form>
@@ -24,12 +25,11 @@
 </template>
  
 <script>
-import router from '../../router';
-
     export default {
         data() {
             return {
-                errorLogin: false,
+                successRegister: false,
+                errorRegister: false,
                 form: {
                     email: "",
                     password: "",
@@ -38,22 +38,21 @@ import router from '../../router';
         },
         methods: {
             submit(){
+                this.successRegister = false,
+                this.errorRegister = false,
                 axios({
                     method: 'get',
                     url: 'http://127.0.0.1:8000/register/' + this.form.email + '/' + this.form.password,
                 })
                 .then((response) => {
-                    console.log(response)
-                    // if(response.data == '200'){
-                    //     router.push({name: 'dashboard'})
-                    // }
-                    // else{
-                    //     this.errorLogin = true
-                    // }
+                    if(response.data == '200'){
+                        this.successRegister = true
+                    }
+                    else{
+                        this.errorRegister = true
+                    }
                 })
                 .catch((error) => {
-                    // router.push({name: 'login'})
-                    // this.errorLogin = true
                 });
             },
             register(){
