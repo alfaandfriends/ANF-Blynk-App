@@ -23,13 +23,22 @@
                     </button>
                 </div>
                 <div class="grid grid-cols-12 gap-6">
-                    <div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200 transform transition duration-500 hover:scale-105">
+                    <div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-3 bg-white shadow-lg rounded-sm border border-gray-200 transform transition hover:scale-105" v-for="(project, index) in projects" :key="index">
                         <div class="px-5 py-5">
-                            <h2 class="text-lg font-semibold text-gray-800 mb-2">Acme Plus</h2>
-                            <div class="text-xs font-semibold text-gray-400 uppercase mb-1">Sales</div>
-                            <div class="flex items-start">
-                                <div class="text-3xl font-bold text-gray-800 mr-2">$24,780</div>
-                                <div class="text-sm font-semibold text-white px-1.5 bg-green-500 rounded-full">+49%</div>
+                            <h2 class="text-lg font-semibold text-blue-800 mb-2">{{ project.name }}</h2>
+                            <div class="flex space-x-4">
+                                <!-- <div class="flex flex-col">
+                                    <div class="text-xs font-semibold text-gray-400 uppercase mb-1">Total Widgets</div>
+                                    <div class="flex items-start">
+                                        <div class="text-3xl font-bold text-gray-800 mr-2">{{ project.widgets ? project.widgets.length : 0 }}</div>
+                                    </div>
+                                </div> -->
+                                <div class="flex flex-col">
+                                    <div class="text-xs font-semibold text-indigo-400 uppercase mb-1">Token</div>
+                                    <div class="flex items-start">
+                                        <div class="font-bold text-gray-500 mr-2">{{ project.devices ? project.devices[0].token : 0 }}</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -53,6 +62,11 @@ export default {
     Sidebar,
     Header,
   },
+  data(){
+    return{
+        projects: ''
+    }
+  },
   mounted(){
         axios({
             method: 'get',
@@ -63,6 +77,7 @@ export default {
             if(response.data == ''){
                 router.push({name: 'login'})
             }
+            this.projects = response.data.dashBoards
         })
         .catch((error) => {
         });
