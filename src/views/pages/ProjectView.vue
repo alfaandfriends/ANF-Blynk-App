@@ -23,7 +23,7 @@
                     </button>
                 </div>
                 <div class="grid grid-cols-12 gap-6">
-                    <div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-2 bg-white shadow-lg rounded-sm border border-gray-200 transform transition hover:scale-105" v-for="(widget, index) in widgets" :key="index">
+                    <div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-2 bg-white shadow-lg rounded-sm border border-gray-200" v-for="(widget, index) in widgets" :key="index">
                         <div class="px-5 py-5" v-if="widget.type == 'BUTTON'">
                             <div class="flex items-center justify-between">
                                 <h2 class="text-lg font-semibold text-blue-800">{{ widget.label }}</h2>
