@@ -105,10 +105,10 @@ export default {
             url: 'http://127.0.0.1:8000/logout',
         })
         .then((response) => {
+          router.push({name: 'login'})
         })
         .catch((error) => {
         });
-        router.push({name: 'login'})
     }
   }
 }

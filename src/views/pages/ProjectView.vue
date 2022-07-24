@@ -19,18 +19,23 @@
                         <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                         <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z"></path>
                         </svg>
-                        <span class="ml-2">Add Project</span>
+                        <span class="ml-2">Add Widget</span>
                     </button>
                 </div>
                 <div class="grid grid-cols-12 gap-6">
-                    <div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-3 bg-white shadow-lg rounded-sm border border-gray-200 transform transition hover:scale-105" v-for="(project, index) in projects" :key="index">
-                        <div class="px-5 py-5">
-                            <h2 class="text-lg font-semibold text-blue-800 mb-2">{{ project.name }}</h2>
-                            <div class="flex space-x-4" @click="openProject(project.id)">
+                    <div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-2 bg-white shadow-lg rounded-sm border border-gray-200 transform transition hover:scale-105" v-for="(widget, index) in widgets" :key="index">
+                        <div class="px-5 py-5" v-if="widget.type == 'BUTTON'">
+                            <div class="flex items-center justify-between">
+                                <h2 class="text-lg font-semibold text-blue-800">{{ widget.label }}</h2>
                                 <div class="flex flex-col">
-                                    <div class="text-xs font-semibold text-indigo-400 uppercase mb-1">Authentication Token</div>
                                     <div class="flex items-start">
-                                        <div class="font-bold text-gray-500 mr-2">{{ project.devices ? project.devices[0].token : 0 }}</div>
+                                        <div class="font-bold text-gray-500 mr-2">
+                                            <div class="flex justify-center">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input appearance-none w-20 -ml-10 rounded-full float-left h-10 align-top bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -52,7 +57,7 @@
                         <div class="modal-body relative p-4">
                             <div class="flex flex-col space-y-2">
                                 <label for="project_name" class="">Project Name</label>
-                                <input type="text" class="border rounded py-2 px-4 ring-0 ring-transparent focus:ring-0 focus:ring-transparent" v-model="project_name">
+                                <input type="text" class="border rounded py-2 px-4 ring-0 ring-transparent focus:ring-0 focus:ring-transparent">
                             </div>
                         </div>
                         <div class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
@@ -101,6 +106,7 @@
   </div>
 </template>
 
+
 <script>
 import { ref } from 'vue'
 import Sidebar from '../partials/Sidebar.vue'
@@ -108,58 +114,49 @@ import Header from '../partials/Header.vue'
 import router from '../../router';
 
 export default {
-  name: 'Dashboard',
-  components: {
-    Sidebar,
-    Header
-},
-  data(){
-    return{
-        project_name: '',
-        projects: ''
-    }
-  },
-  mounted(){
-        axios({
-            method: 'get',
-            url: 'http://127.0.0.1:8000/profile',
-        })
-        .then((response) => {
-            console.log(response)
-            if(response.data == ''){
-                router.push({name: 'login'})
-            }
-            this.projects = response.data.dashBoards ? response.data.dashBoards : ''
-        })
-        .catch((error) => {
-        });
-  },
-  methods: {
-    createProject(){
-        axios({
-            method: 'get',
-            url: 'http://127.0.0.1:8000/createDash/' + (this.projects != '' ? (this.projects.length + 1) : 1) + '/' + this.project_name,
-        })
-        .then((response) => {
-            console.log(response)
-            if(response.status == '200'){
-                router.go(0)
-            }
-        })
-        .catch((error) => {
-        });
+    name: 'Dashboard',
+    components: {
+        Sidebar,
+        Header
     },
-    openProject(projectId){
-        router.push({name: 'project', params: { projectId: projectId }})
-    }
-  },
-  setup() {
+    props: {
+        projectId: String
+    },
+    data(){
+        return{
+            projects: '',
+            widgets: ''
+        }
+    },
+    mounted(){
+            axios({
+                method: 'get',
+                url: 'http://127.0.0.1:8000/profile',
+            })
+            .then((response) => {
+                console.log(response)
+                if(response.data == ''){
+                    router.push({name: 'login'})
+                }
+                this.projects = response.data.dashBoards ? response.data.dashBoards : ''
+                if(!this.projects[this.projectId-1]){
+                    router.push({name: 'dashboard'})
+                }
+                console.log(this.projects[this.projectId-1])
+                this.widgets = this.projects[this.projectId-1].widgets ? this.projects[this.projectId-1].widgets : ''
+            })
+            .catch((error) => {
+            });
+    },
+    methods: {
+    },
+    setup() {
 
-    const sidebarOpen = ref(false)
+        const sidebarOpen = ref(false)
 
-    return {
-      sidebarOpen,
-    }  
-  },
+        return {
+        sidebarOpen,
+        }  
+    },
 }
 </script>

@@ -36,20 +36,20 @@ import router from '../../router';
                 }
             }
         },
-        mounted(){
-            axios({
-                method: 'get',
-                url: 'http://127.0.0.1:8000/profile',
-            })
-            .then((response) => {
-                console.log(response)
-                if(!response.data == ''){
-                    router.push({name: 'dashboard'})
-                }
-            })
-            .catch((error) => {
-            });
-        },
+        // mounted(){
+        //     axios({
+        //         method: 'get',
+        //         url: 'http://127.0.0.1:8000/profile',
+        //     })
+        //     .then((response) => {
+        //         console.log(response)
+        //         if(!response.data == ''){
+        //             router.push({name: 'dashboard'})
+        //         }
+        //     })
+        //     .catch((error) => {
+        //     });
+        // },
         methods: {
             submit(){
                 axios({
