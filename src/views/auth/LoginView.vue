@@ -13,7 +13,7 @@
             <div class="flex flex-col text-center space-y-3  mb-5">
                 <button type="button" @click="submit" class="text-sm rounded bg-indigo-500 px-6 py-2 text-white hover:bg-indigo-700">Sign in</button>
                 <span class="text-slate-700 font-extralight text-xs">or</span>
-                <a href="/register" class="text-sm rounded bg-slate-700 px-6 py-2 text-white hover:bg-gray-600 no-underline">Create New Account</a>
+                <a href="/signup" class="text-sm rounded bg-slate-700 px-6 py-2 text-white hover:bg-gray-600 no-underline">Create New Account</a>
             </div>
             <div class="text-center">
                 <span v-show="errorLogin" class="rounded-1 px-6 py-2 bg-red-100 text-center text-red-600">Login Error! Please try again.</span>
