@@ -24,9 +24,9 @@
                 </div>
                 <div class="grid grid-cols-12 gap-6">
                     <div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-3 bg-white shadow-lg rounded-sm border border-gray-200 transform transition hover:scale-105" v-for="(project, index) in projects" :key="index">
-                        <div class="px-5 py-5">
+                        <div class="px-5 py-5" @click="openProject(project.id)">
                             <h2 class="text-lg font-semibold text-blue-800 mb-2">{{ project.name }}</h2>
-                            <div class="flex space-x-4" @click="openProject(project.id)">
+                            <div class="flex space-x-4">
                                 <div class="flex flex-col">
                                     <div class="text-xs font-semibold text-indigo-400 uppercase mb-1">Authentication Token</div>
                                     <div class="flex items-start">
@@ -50,7 +50,7 @@
                             data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body relative p-4">
-                            <div class="flex flex-col space-y-2">
+                            <div class="flex flex-col space-y-2 text-slate-800">
                                 <label for="project_name" class="">Project Name</label>
                                 <input type="text" class="border rounded py-2 px-4 ring-0 ring-transparent focus:ring-0 focus:ring-transparent" v-model="project_name">
                             </div>
@@ -150,7 +150,17 @@ export default {
         });
     },
     openProject(projectId){
-        router.push({name: 'project', params: { projectId: projectId }})
+        axios({
+            method: 'get',
+            url: 'http://127.0.0.1:8000/activateDash/' + projectId,
+        })
+        .then((response) => {
+            if(response.status == '200'){
+                router.push({name: 'project', params: { projectId: projectId }})
+            }
+        })
+        .catch((error) => {
+        });
     }
   },
   setup() {

@@ -19,7 +19,7 @@
           l17.861,17.861L401.475,68.207z M267.025,0h-27.33v55.825h27.33V0z"/>
       </svg>
       <div class="flex items-center truncate">
-        <span class="truncate ml-2 text-sm font-medium group-hover:text-gray-800">Welcome, User</span>
+        <span class="truncate ml-2 text-sm font-medium text-gray-600 group-hover:text-gray-800">Welcome, User</span>
         <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-gray-400" viewBox="0 0 12 12">
           <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
         </svg>

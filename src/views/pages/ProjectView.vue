@@ -15,11 +15,13 @@
             
                 <!-- Dashboard actions -->
                 <div class="sm:flex sm:justify-between sm:items-center mb-4">
-                    <button class="flex py-2 px-6 btn bg-indigo-500 hover:bg-indigo-600 text-white rounded items-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
-                        <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z"></path>
-                        </svg>
-                        <span class="ml-2">Add Widget</span>
+                    <button class="flex py-2 px-6 btn bg-blue-500 hover:bg-blue-600 text-white rounded items-center" @click="runProject()" v-if="project_status == false">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="text-white" height="15" width="15" viewBox="0 0 448 512"><!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) --><path d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"/></svg>
+                        <span class="ml-2">Run Project</span>
+                    </button>
+                    <button class="flex py-2 px-6 btn bg-red-500 hover:bg-red-600 text-white rounded items-center" @click="runProject()" v-if="project_status == true">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="text-white" height="15" width="15" viewBox="0 0 448 512"><!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) --><path d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48z"/></svg>
+                        <span class="ml-2">Stop Project</span>
                     </button>
                 </div>
                 <div class="grid grid-cols-12 gap-6">
@@ -32,70 +34,13 @@
                                         <div class="font-bold text-gray-500 mr-2">
                                             <div class="flex justify-center">
                                                 <div class="form-check form-switch">
-                                                    <input class="form-check-input appearance-none w-20 -ml-10 rounded-full float-left h-10 align-top bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                    <input class="form-check-input appearance-none w-16 -ml-10 rounded-full float-left h-7 align-top bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm transform transition hover:scale-105" type="checkbox" role="switch" id="flexSwitchCheckDefault" v-model="button_status" @click="buttonSwitchAction">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-             <!-- Modal -->
-            <div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog relative w-auto pointer-events-none">
-                    <div class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
-                        <div
-                            class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
-                            <h5 class="text-xl font-medium leading-normal text-gray-800" id="exampleModalLabel">Create New Project</h5>
-                            <button type="button"
-                            class="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
-                            data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body relative p-4">
-                            <div class="flex flex-col space-y-2">
-                                <label for="project_name" class="">Project Name</label>
-                                <input type="text" class="border rounded py-2 px-4 ring-0 ring-transparent focus:ring-0 focus:ring-transparent">
-                            </div>
-                        </div>
-                        <div class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
-                            <button type="button" class="px-6
-                                py-2.5
-                                bg-gray-600
-                                text-white
-                                font-medium
-                                text-xs
-                                leading-tight
-                                uppercase
-                                rounded
-                                shadow-md
-                                hover:bg-gray-700 hover:shadow-lg
-                                focus:bg-gray-700 focus:shadow-lg focus:outline-none focus:ring-0
-                                active:bg-gray-800 active:shadow-lg
-                                transition
-                                duration-150
-                                ease-in-out" data-bs-dismiss="modal">Cancel
-                            </button>
-                            <button @click="createProject" type="button" class="px-6
-                                py-2.5
-                                bg-blue-600
-                                text-white
-                                font-medium
-                                text-xs
-                                leading-tight
-                                uppercase
-                                rounded
-                                shadow-md
-                                hover:bg-blue-700 hover:shadow-lg
-                                focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
-                                active:bg-blue-800 active:shadow-lg
-                                transition
-                                duration-150
-                                ease-in-out
-                                ml-1">Create Project
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -124,6 +69,8 @@ export default {
     },
     data(){
         return{
+            button_status: false,
+            project_status: false,
             projects: '',
             widgets: ''
         }
@@ -142,13 +89,69 @@ export default {
                 if(!this.projects[this.projectId-1]){
                     router.push({name: 'dashboard'})
                 }
-                console.log(this.projects[this.projectId-1])
                 this.widgets = this.projects[this.projectId-1].widgets ? this.projects[this.projectId-1].widgets : ''
+                axios({
+                    method: 'get',
+                    url: 'http://127.0.0.1:8000/deactivateDash/'+this.projectId,
+                })
+                .then((response) => {
+                    this.project_status=false
+                })
+                .catch((error) => {
+                });
             })
             .catch((error) => {
             });
     },
     methods: {
+        runProject(){
+            if(this.project_status == false){
+                axios({
+                    method: 'get',
+                    url: 'http://127.0.0.1:8000/activateDash/'+this.projectId,
+                })
+                .then((response) => {
+                    this.project_status=true
+                })
+                .catch((error) => {
+                });
+            }
+            else{
+                axios({
+                    method: 'get',
+                    url: 'http://127.0.0.1:8000/deactivateDash/'+this.projectId,
+                })
+                .then((response) => {
+                    this.project_status=false
+                })
+                .catch((error) => {
+                });
+            }
+        },
+        buttonSwitchAction(){
+            if(this.button_status == false){
+                axios({
+                    method: 'get',
+                    url: 'http://127.0.0.1:8000/hardware/' + this.projectId + '-0/vw/0/1',
+                })
+                .then((response) => {
+                    this.button_status = true
+                })
+                .catch((error) => {
+                });
+            }
+            else{
+                axios({
+                    method: 'get',
+                    url: 'http://127.0.0.1:8000/hardware/' + this.projectId + '-0/vw/0/0',
+                })
+                .then((response) => {
+                    this.button_status = false
+                })
+                .catch((error) => {
+                });
+            }
+        }
     },
     setup() {
 
