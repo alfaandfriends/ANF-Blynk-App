@@ -34,7 +34,7 @@
                                         <div class="font-bold text-gray-500 mr-2">
                                             <div class="flex justify-center">
                                                 <div class="form-check form-switch">
-                                                    <input class="form-check-input appearance-none w-16 -ml-10 rounded-full float-left h-7 align-top bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm transform transition hover:scale-105" type="checkbox" role="switch" id="flexSwitchCheckDefault" v-model="button_status" @click="buttonSwitchAction">
+                                                    <input class="form-check-input appearance-none w-16 -ml-10 rounded-full float-left h-7 align-top bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm transform transition hover:scale-105" type="checkbox" role="switch" id="flexSwitchCheckDefault" v-model="button_status" @click="buttonSwitchAction" :disabled="button_disabled">
                                                 </div>
                                             </div>
                                         </div>
@@ -70,6 +70,7 @@ export default {
     data(){
         return{
             button_status: false,
+            button_disabled: true,
             project_status: false,
             projects: '',
             widgets: ''
@@ -82,20 +83,24 @@ export default {
             })
             .then((response) => {
                 console.log(response)
+                //if not authorized
                 if(response.data == ''){
                     router.push({name: 'login'})
                 }
+
                 this.projects = response.data.dashBoards ? response.data.dashBoards : ''
+                //if project not valid
                 if(!this.projects[this.projectId-1]){
                     router.push({name: 'dashboard'})
                 }
+
                 this.widgets = this.projects[this.projectId-1].widgets ? this.projects[this.projectId-1].widgets : ''
+
                 axios({
                     method: 'get',
                     url: 'http://127.0.0.1:8000/deactivateDash/'+this.projectId,
                 })
                 .then((response) => {
-                    this.project_status=false
                 })
                 .catch((error) => {
                 });
@@ -111,7 +116,13 @@ export default {
                     url: 'http://127.0.0.1:8000/activateDash/'+this.projectId,
                 })
                 .then((response) => {
-                    this.project_status=true
+                    if(response.data == "7"){
+                        alert('Device not in network')
+                    }
+                    else{
+                        this.project_status=true
+                        this.button_disabled=false
+                    }
                 })
                 .catch((error) => {
                 });
@@ -123,6 +134,7 @@ export default {
                 })
                 .then((response) => {
                     this.project_status=false
+                    this.button_disabled=true
                 })
                 .catch((error) => {
                 });
