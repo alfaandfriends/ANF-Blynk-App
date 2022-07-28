@@ -39,7 +39,7 @@ import router from '../../router';
         // mounted(){
         //     axios({
         //         method: 'get',
-        //         url: 'http://127.0.0.1:8000/profile',
+        //         url: 'alfaandfriends.tplinkdns.com/profile',
         //     })
         //     .then((response) => {
         //         console.log(response)
@@ -54,7 +54,7 @@ import router from '../../router';
             submit(){
                 axios({
                     method: 'get',
-                    url: 'http://127.0.0.1:8000/login/' + this.form.email + '/' + this.form.password,
+                    url: 'alfaandfriends.tplinkdns.com/login/' + this.form.email + '/' + this.form.password,
                 })
                 .then((response) => {
                     console.log(response)
