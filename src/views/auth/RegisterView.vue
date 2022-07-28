@@ -42,7 +42,7 @@
                 this.errorRegister = false,
                 axios({
                     method: 'get',
-                    url: 'alfaandfriends.tplinkdns.com/register/' + this.form.email + '/' + this.form.password,
+                    url: 'http://alfaandfriends.tplinkdns.com:8000/register/' + this.form.email + '/' + this.form.password,
                 })
                 .then((response) => {
                     if(response.data == '200'){

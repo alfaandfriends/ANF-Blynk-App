@@ -15,7 +15,7 @@ export default {
         // checkSession(){
         //     axios({
         //         method: 'get',
-        //         url: 'alfaandfriends.tplinkdns.com/profile',
+        //         url: 'http://alfaandfriends.tplinkdns.com:8000/profile',
         //     })
         //     .then((response) => {
         //         console.log(response)

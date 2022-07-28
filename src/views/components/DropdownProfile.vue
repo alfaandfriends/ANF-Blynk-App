@@ -102,7 +102,7 @@ export default {
     logout(){
         axios({
             method: 'get',
-            url: 'alfaandfriends.tplinkdns.com/logout',
+            url: 'http://alfaandfriends.tplinkdns.com:8000/logout',
         })
         .then((response) => {
           router.push({name: 'login'})

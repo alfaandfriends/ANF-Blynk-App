@@ -122,7 +122,7 @@ export default {
   mounted(){
         axios({
             method: 'get',
-            url: 'alfaandfriends.tplinkdns.com/profile',
+            url: 'http://alfaandfriends.tplinkdns.com:8000/profile',
         })
         .then((response) => {
             console.log(response)
@@ -138,7 +138,7 @@ export default {
     createProject(){
         axios({
             method: 'get',
-            url: 'alfaandfriends.tplinkdns.com/createDash/' + (this.projects != '' ? (this.projects.length + 1) : 1) + '/' + this.project_name,
+            url: 'http://alfaandfriends.tplinkdns.com:8000/createDash/' + (this.projects != '' ? (this.projects.length + 1) : 1) + '/' + this.project_name,
         })
         .then((response) => {
             console.log(response)
@@ -152,7 +152,7 @@ export default {
     openProject(projectId){
         axios({
             method: 'get',
-            url: 'alfaandfriends.tplinkdns.com/activateDash/' + projectId,
+            url: 'http://alfaandfriends.tplinkdns.com:8000/activateDash/' + projectId,
         })
         .then((response) => {
             if(response.status == '200'){

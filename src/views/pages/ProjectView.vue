@@ -79,7 +79,7 @@ export default {
     mounted(){
             axios({
                 method: 'get',
-                url: 'alfaandfriends.tplinkdns.com/profile',
+                url: 'http://alfaandfriends.tplinkdns.com:8000/profile',
             })
             .then((response) => {
                 console.log(response)
@@ -98,7 +98,7 @@ export default {
 
                 axios({
                     method: 'get',
-                    url: 'alfaandfriends.tplinkdns.com/deactivateDash/'+this.projectId,
+                    url: 'http://alfaandfriends.tplinkdns.com:8000/deactivateDash/'+this.projectId,
                 })
                 .then((response) => {
                 })
@@ -113,7 +113,7 @@ export default {
             if(this.project_status == false){
                 axios({
                     method: 'get',
-                    url: 'alfaandfriends.tplinkdns.com/activateDash/'+this.projectId,
+                    url: 'http://alfaandfriends.tplinkdns.com:8000/activateDash/'+this.projectId,
                 })
                 .then((response) => {
                     if(response.data == "7"){
@@ -130,7 +130,7 @@ export default {
             else{
                 axios({
                     method: 'get',
-                    url: 'alfaandfriends.tplinkdns.com/deactivateDash/'+this.projectId,
+                    url: 'http://alfaandfriends.tplinkdns.com:8000/deactivateDash/'+this.projectId,
                 })
                 .then((response) => {
                     this.project_status=false
@@ -144,7 +144,7 @@ export default {
             if(this.button_status == false){
                 axios({
                     method: 'get',
-                    url: 'alfaandfriends.tplinkdns.com/hardware/' + this.projectId + '-0/vw/0/1',
+                    url: 'http://alfaandfriends.tplinkdns.com:8000/hardware/' + this.projectId + '-0/vw/0/1',
                 })
                 .then((response) => {
                     this.button_status = true
@@ -155,7 +155,7 @@ export default {
             else{
                 axios({
                     method: 'get',
-                    url: 'alfaandfriends.tplinkdns.com/hardware/' + this.projectId + '-0/vw/0/0',
+                    url: 'http://alfaandfriends.tplinkdns.com:8000/hardware/' + this.projectId + '-0/vw/0/0',
                 })
                 .then((response) => {
                     this.button_status = false
