@@ -36,20 +36,6 @@ import router from '../../router';
                 }
             }
         },
-        // mounted(){
-        //     axios({
-        //         method: 'get',
-        //         url: 'http://alfaandfriends.tplinkdns.com:8000/profile',
-        //     })
-        //     .then((response) => {
-        //         console.log(response)
-        //         if(!response.data == ''){
-        //             router.push({name: 'dashboard'})
-        //         }
-        //     })
-        //     .catch((error) => {
-        //     });
-        // },
         methods: {
             submit(){
                 axios({

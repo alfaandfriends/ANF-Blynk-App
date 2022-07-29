@@ -82,12 +82,6 @@ export default {
                 url: 'http://alfaandfriends.tplinkdns.com:8000/profile',
             })
             .then((response) => {
-                console.log(response)
-                //if not authorized
-                if(response.data == ''){
-                    router.push({name: 'login'})
-                }
-
                 this.projects = response.data.dashBoards ? response.data.dashBoards : ''
                 //if project not valid
                 if(!this.projects[this.projectId-1]){
