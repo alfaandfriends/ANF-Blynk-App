@@ -40,10 +40,9 @@ import router from '../../router';
             submit(){
                 axios({
                     method: 'get',
-                    url: 'http://alfaandfriends.tplinkdns.com:8000/login/' + this.form.email + '/' + this.form.password,
+                    url: import.meta.env.VITE_API_URL + '/login/' + this.form.email + '/' + this.form.password,
                 })
                 .then((response) => {
-                    console.log(response)
                     if(response.data == '200'){
                         router.push({name: 'dashboard'})
                     }
@@ -52,8 +51,6 @@ import router from '../../router';
                     }
                 })
                 .catch((error) => {
-                    // router.push({name: 'login'})
-                    this.errorLogin = true
                 });
             }
         }

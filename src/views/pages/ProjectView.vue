@@ -80,7 +80,7 @@ export default {
         this.checkSession()
         axios({
             method: 'get',
-            url: 'http://alfaandfriends.tplinkdns.com:8000/deactivateDash/'+this.projectId,
+            url: import.meta.env.VITE_API_URL + '/deactivateDash/'+this.projectId,
         })
         .then((response) => {
         })
@@ -95,7 +95,7 @@ export default {
             if(this.project_status == false){
                 axios({
                     method: 'get',
-                    url: 'http://alfaandfriends.tplinkdns.com:8000/activateDash/'+this.projectId,
+                    url: import.meta.env.VITE_API_URL + '/activateDash/'+this.projectId,
                 })
                 .then((response) => {
                     if(response.data == "7"){
@@ -112,7 +112,7 @@ export default {
             else{
                 axios({
                     method: 'get',
-                    url: 'http://alfaandfriends.tplinkdns.com:8000/deactivateDash/'+this.projectId,
+                    url: import.meta.env.VITE_API_URL + '/deactivateDash/'+this.projectId,
                 })
                 .then((response) => {
                     this.project_status=false
@@ -126,7 +126,7 @@ export default {
             if(this.button_status == false){
                 axios({
                     method: 'get',
-                    url: 'http://alfaandfriends.tplinkdns.com:8000/hardware/' + this.projectId + '-0/vw/0/1',
+                    url: import.meta.env.VITE_API_URL + '/hardware/' + this.projectId + '-0/vw/0/1',
                     timeout: 100,
                 })
                 .then((response) => {
@@ -138,7 +138,7 @@ export default {
             else{
                 axios({
                     method: 'get',
-                    url: 'http://alfaandfriends.tplinkdns.com:8000/hardware/' + this.projectId + '-0/vw/0/0',
+                    url: import.meta.env.VITE_API_URL + '/hardware/' + this.projectId + '-0/vw/0/0',
                     timeout: 100,
                 })
                 .then((response) => {
@@ -151,7 +151,7 @@ export default {
         checkSession(){
             axios({
                 method: 'get',
-                url: 'http://alfaandfriends.tplinkdns.com:8000/profile',
+                url: import.meta.env.VITE_API_URL + '/profile',
                 timeout: 30000,
             })
             .then((response) => {

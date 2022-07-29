@@ -27,7 +27,7 @@
           </svg>
         </button>
         <!-- Logo -->
-        <router-link class="block" to="/">
+        <router-link class="block" to="/dashboard">
           <div class="flex space-x-4">
             <img src="../../assets/logo.png" alt="" width="32" height="32">
             <span class="text-white font-bold self-center">ALFA and Friends</span>
@@ -45,7 +45,7 @@
           </h3>
           <ul class="mt-3">
             <!-- Dashboard -->
-            <router-link to="/" custom v-slot="{ href, navigate, isExactActive }">
+            <router-link to="/dashboard" custom v-slot="{ href, navigate, isExactActive }">
               <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" :class="isExactActive && 'bg-gray-900'">
                 <a class="block text-gray-200 hover:text-white truncate transition duration-150" :class="isExactActive && 'hover:text-gray-200'" :href="href" @click="navigate">
                   <div class="flex items-center">

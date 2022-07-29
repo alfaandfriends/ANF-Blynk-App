@@ -102,7 +102,7 @@ export default {
     logout(){
         axios({
             method: 'get',
-            url: 'http://alfaandfriends.tplinkdns.com:8000/logout',
+            url: import.meta.env.VITE_API_URL + '/logout',
         })
         .then((response) => {
           router.push({name: 'login'})

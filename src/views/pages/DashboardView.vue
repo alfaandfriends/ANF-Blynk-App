@@ -129,7 +129,7 @@ export default {
     createProject(){
         axios({
             method: 'get',
-            url: 'http://alfaandfriends.tplinkdns.com:8000/createDash/' + (this.projects != '' ? (this.projects.length + 1) : 1) + '/' + this.project_name,
+            url: import.meta.env.VITE_API_URL + '/createDash/' + (this.projects != '' ? (this.projects.length + 1) : 1) + '/' + this.project_name,
         })
         .then((response) => {
             console.log(response)
@@ -143,7 +143,7 @@ export default {
     openProject(projectId){
         axios({
             method: 'get',
-            url: 'http://alfaandfriends.tplinkdns.com:8000/activateDash/' + projectId,
+            url: import.meta.env.VITE_API_URL + '/activateDash/' + projectId,
         })
         .then((response) => {
             if(response.status == '200'){
@@ -156,8 +156,8 @@ export default {
     checkSession(){
         axios({
             method: 'get',
-            url: 'http://alfaandfriends.tplinkdns.com:8000/profile',
-            timeout: 30000,
+            url: import.meta.env.VITE_API_URL + '/profile',
+            timeout: 500,
         })
         .then((response) => {
             this.projects = response.data.dashBoards ? response.data.dashBoards : ''
