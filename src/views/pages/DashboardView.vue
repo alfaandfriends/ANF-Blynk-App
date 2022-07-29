@@ -120,19 +120,10 @@ export default {
     }
   },
   mounted(){
-        axios({
-            method: 'get',
-            url: 'http://alfaandfriends.tplinkdns.com:8000/profile',
-        })
-        .then((response) => {
-            // console.log(response)
-            // if(response.data == ''){
-            //     router.push({name: 'login'})
-            // }
-            this.projects = response.data.dashBoards ? response.data.dashBoards : ''
-        })
-        .catch((error) => {
-        });
+        this.checkSession()
+        setInterval( function(){ 
+            this.checkSession()
+        }.bind(this), 10000);
   },
   methods: {
     createProject(){
@@ -160,6 +151,19 @@ export default {
             }
         })
         .catch((error) => {
+        });
+    },
+    checkSession(){
+        axios({
+            method: 'get',
+            url: 'http://alfaandfriends.tplinkdns.com:8000/profile',
+            timeout: 30000,
+        })
+        .then((response) => {
+            this.projects = response.data.dashBoards ? response.data.dashBoards : ''
+        })
+        .catch((error) => {
+            router.push({name: 'login'})
         });
     }
   },

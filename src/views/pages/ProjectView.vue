@@ -77,30 +77,18 @@ export default {
         }
     },
     mounted(){
-            axios({
-                method: 'get',
-                url: 'http://alfaandfriends.tplinkdns.com:8000/profile',
-            })
-            .then((response) => {
-                this.projects = response.data.dashBoards ? response.data.dashBoards : ''
-                //if project not valid
-                if(!this.projects[this.projectId-1]){
-                    router.push({name: 'dashboard'})
-                }
-
-                this.widgets = this.projects[this.projectId-1].widgets ? this.projects[this.projectId-1].widgets : ''
-
-                axios({
-                    method: 'get',
-                    url: 'http://alfaandfriends.tplinkdns.com:8000/deactivateDash/'+this.projectId,
-                })
-                .then((response) => {
-                })
-                .catch((error) => {
-                });
-            })
-            .catch((error) => {
-            });
+        this.checkSession()
+        axios({
+            method: 'get',
+            url: 'http://alfaandfriends.tplinkdns.com:8000/deactivateDash/'+this.projectId,
+        })
+        .then((response) => {
+        })
+        .catch((error) => {
+        });
+        setInterval( function(){ 
+            this.checkSession()
+        }.bind(this), 10000);
     },
     methods: {
         runProject(){
@@ -139,6 +127,7 @@ export default {
                 axios({
                     method: 'get',
                     url: 'http://alfaandfriends.tplinkdns.com:8000/hardware/' + this.projectId + '-0/vw/0/1',
+                    timeout: 100,
                 })
                 .then((response) => {
                     this.button_status = true
@@ -150,6 +139,7 @@ export default {
                 axios({
                     method: 'get',
                     url: 'http://alfaandfriends.tplinkdns.com:8000/hardware/' + this.projectId + '-0/vw/0/0',
+                    timeout: 100,
                 })
                 .then((response) => {
                     this.button_status = false
@@ -157,6 +147,24 @@ export default {
                 .catch((error) => {
                 });
             }
+        },
+        checkSession(){
+            axios({
+                method: 'get',
+                url: 'http://alfaandfriends.tplinkdns.com:8000/profile',
+                timeout: 30000,
+            })
+            .then((response) => {
+                this.projects = response.data.dashBoards ? response.data.dashBoards : ''
+                if(!this.projects[this.projectId-1]){
+                    router.push({name: 'dashboard'})
+                }
+
+                this.widgets = this.projects[this.projectId-1].widgets ? this.projects[this.projectId-1].widgets : ''
+            })
+            .catch((error) => {
+                router.push({name: 'login'})
+            });
         }
     },
     setup() {
