@@ -5,7 +5,7 @@ import { RouterLink, RouterView } from 'vue-router'
 <script>
 import router from './router'
 
-export default {   
+export default {  
 }
 </script>
 
